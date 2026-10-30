@@ -24,6 +24,7 @@ const JSON_LD = {
       "@type": "Product",
       name: "Agents Kit Post-mortem",
       description: "The full written diagnosis of five silent failures in a production autonomous agent.",
+      image: `${SITE.url}/og.jpg`,
       brand: { "@type": "Brand", name: SITE.name },
       offers: {
         "@type": "Offer",
@@ -31,6 +32,13 @@ const JSON_LD = {
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
         url: `${SITE.url}/#postmortem`,
+        hasMerchantReturnPolicy: {
+          "@type": "MerchantReturnPolicy",
+          applicableCountry: "US",
+          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+          merchantReturnDays: SITE.refundDays,
+          returnFees: "https://schema.org/FreeReturn",
+        },
       },
     },
   ],
