@@ -1,7 +1,11 @@
+import { IncidentStory } from "@/components/console/IncidentStory";
+import { Author } from "@/components/home/Author";
 import { Hero } from "@/components/home/Hero";
-import { Incident, Pipeline, QuickStart } from "@/components/home/Incident";
-import { Facts, Modules } from "@/components/home/Modules";
+import { Pipeline, QuickStart } from "@/components/home/Incident";
+import { Modules, Receipts } from "@/components/home/Modules";
 import { Closing, Faq, Offer } from "@/components/home/Offer";
+import { ScrollText } from "@/components/fx/ScrollText";
+import { Reveal } from "@/components/Reveal";
 import { SITE } from "@/lib/site";
 
 const JSON_LD = {
@@ -40,13 +44,28 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <Hero />
       <div className={CONTAINER}>
-        <Facts />
+        <Receipts />
+        <section id="incidents" className="pt-24 md:pt-36">
+          <Reveal>
+            <h2 className="max-w-[18ch] text-[clamp(2rem,3.8vw,3rem)] font-semibold leading-[1.05] tracking-[-0.04em]">
+              What the dashboard didn&apos;t say
+            </h2>
+            <p className="mt-4 max-w-[56ch] text-muted">
+              Five failures, each invisible to normal monitoring. Scroll, and watch the board tell the truth.
+            </p>
+          </Reveal>
+          <IncidentStory />
+        </section>
+        <ScrollText
+          text="Uptime, error rate and latency stayed green the whole time. Nothing ever asked the system to actually do anything."
+          className="mx-auto mt-8 max-w-[28ch] text-center text-[clamp(1.7rem,3.6vw,2.9rem)] font-semibold leading-[1.18] tracking-[-0.035em]"
+        />
         <Modules />
-        <Incident />
       </div>
       <Pipeline />
       <div className={CONTAINER}>
         <QuickStart />
+        <Author />
         <Offer />
         <Faq />
         <Closing />

@@ -3,29 +3,21 @@ type LogoMarkProps = {
   className?: string;
 };
 
-// Five offset panes: one pane per module, the front one solid.
+// A heartbeat that goes flat: the signal looked alive, then nothing.
 export function LogoMark({ size = 28, className }: LogoMarkProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" className={className} aria-hidden>
-      <defs>
-        <linearGradient id="ak-tile" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#F7A774" />
-          <stop offset="1" stopColor="#DE6A2A" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="8" fill="url(#ak-tile)" />
-      {[0, 1, 2, 3, 4].map((i) => (
-        <rect
-          key={i}
-          x={5 + i * 2.5}
-          y={6 + i * 1.5}
-          width="13"
-          height="15"
-          rx="2.5"
-          fill="#1C0D04"
-          fillOpacity={i === 4 ? 1 : 0.14 + i * 0.12}
-        />
-      ))}
+      <rect width="32" height="32" rx="8" fill="#111313" />
+      <rect x="0.5" y="0.5" width="31" height="31" rx="7.5" fill="none" stroke="#2c3231" />
+      <path
+        d="M5 17.5h5l2.2-6.5 3.3 12 2.5-7.5h2"
+        fill="none"
+        stroke="#3FD17A"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M20 17.5h7" fill="none" stroke="#FF5B38" strokeWidth="2.2" strokeLinecap="round" />
     </svg>
   );
 }

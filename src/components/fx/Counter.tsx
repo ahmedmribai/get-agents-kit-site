@@ -21,7 +21,7 @@ export function Counter({ to, className }: CounterProps) {
       duration: 1.2,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (value) => {
-        node.textContent = String(Math.round(value));
+        node.textContent = Math.round(value).toLocaleString("en-US");
       },
     });
     return () => controls.stop();
@@ -29,7 +29,7 @@ export function Counter({ to, className }: CounterProps) {
 
   return (
     <span ref={ref} className={className}>
-      {to}
+      {to.toLocaleString("en-US")}
     </span>
   );
 }

@@ -1,76 +1,88 @@
-import { ArrowRight, CheckCircle, DownloadSimple, GithubLogo, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
+import { ArrowRight, DownloadSimple, FileText, GithubLogo, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ButtonLink";
 import { Accordion } from "@/components/fx/Accordion";
 import { Magnetic } from "@/components/fx/Magnetic";
-import { Parallax } from "@/components/fx/Parallax";
 import { Spotlight } from "@/components/fx/Spotlight";
+import { Tilt } from "@/components/fx/Tilt";
 import { Reveal } from "@/components/Reveal";
+import { POSTMORTEM_TOC } from "@/lib/incident";
 import { SITE } from "@/lib/site";
 
-const INSIDE = [
-  "The gate that failed closed and deadlocked everything",
-  "The loop that ran for three weeks and produced nothing",
-  "The tunable that was secretly an off-switch",
-  "Delivering the sales page to the person who just bought it",
-];
+// The paid write-up, shown as the case file it is: its real table of contents.
+function CaseFile() {
+  return (
+    <Tilt max={4} className="group">
+      <div className="relative rounded-[18px] border border-line bg-[#f2efe8] p-7 text-[#1b1a17] shadow-soft md:p-9">
+        <div className="flex items-center justify-between font-mono text-[12px] text-[#6d6a62]">
+          <span className="inline-flex items-center gap-2">
+            <FileText size={15} aria-hidden />
+            POSTMORTEM.md
+          </span>
+          <span>about 12 KB</span>
+        </div>
+        <h3 className="mt-6 text-[1.6rem] font-semibold leading-tight tracking-[-0.03em]">The full post-mortem</h3>
+        <p className="mt-2 text-[14.5px] text-[#55524b]">Five failures a production agent hid behind green logs.</p>
+        <ol className="mt-6 grid gap-0 border-t border-[#d9d4c8]">
+          {POSTMORTEM_TOC.map((item, i) => (
+            <li key={item} className="flex gap-4 border-b border-[#d9d4c8] py-3 text-[14.5px]">
+              <span className="w-5 shrink-0 font-mono text-[#9a958a]">{i + 1}</span>
+              {item}
+            </li>
+          ))}
+        </ol>
+        <span className="absolute -right-3 -top-3 rotate-6 rounded-[8px] border-2 border-accent bg-[#f2efe8] px-3 py-1 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-accent">
+          Resolved
+        </span>
+      </div>
+    </Tilt>
+  );
+}
 
 export function Offer() {
   return (
     <section id="postmortem" className="pt-24 md:pt-36">
-      <Reveal>
-        <Spotlight className="grid overflow-hidden rounded-[24px] border border-line bg-surface shadow-soft md:grid-cols-[0.85fr_1.25fr_0.9fr]">
-          <div className="relative z-[1] aspect-video overflow-hidden md:aspect-auto md:min-h-[400px]">
-            <Parallax distance={-80} className="absolute inset-[-10%_0]">
-              <Image
-                src="/assets/hourglass.webp"
-                alt="Glass hourglass with clockwork gears inside, sand running through"
-                width={1200}
-                height={900}
-                className="h-full w-full object-cover"
-              />
-            </Parallax>
-          </div>
-          <div className="relative z-[1] p-7 md:p-11">
-            <h2 className="text-[clamp(1.9rem,3.2vw,2.6rem)] font-semibold leading-[1.05] tracking-[-0.04em]">The full post-mortem</h2>
-            <p className="mt-4 max-w-[52ch] text-muted">
-              The code is free. The part you can&apos;t get from the code is the diagnosis: what each symptom looked like,
-              the wrong theories ruled out first, and the one measurement that showed what was happening.
-            </p>
-            <ul className="mt-6 grid gap-3">
-              {INSIDE.map((item) => (
-                <li key={item} className="flex gap-3 text-[15.5px]">
-                  <CheckCircle size={20} weight="duotone" className="mt-0.5 shrink-0 text-accent" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative z-[1] flex flex-col justify-center gap-4 border-t border-line bg-[linear-gradient(165deg,var(--tint),transparent_80%)] p-7 md:border-l md:border-t-0 md:p-9">
-            <div className="text-[3.4rem] font-semibold leading-none tracking-[-0.05em]">{SITE.price}</div>
-            <p className="flex gap-2 text-sm text-muted">
-              <DownloadSimple size={18} className="shrink-0" aria-hidden />
-              One-time purchase, delivered by email as a download.
-            </p>
-            <Magnetic strength={0.15}>
-              <ButtonLink href={SITE.checkout} className="w-full">
-                Get the post-mortem
-                <ArrowRight size={15} weight="bold" aria-hidden />
-              </ButtonLink>
-            </Magnetic>
-            <p className="flex gap-2 text-sm text-muted">
-              <ShieldCheck size={18} className="shrink-0" aria-hidden />
-              <span>
-                {SITE.refundDays}-day refund, no questions asked.{" "}
-                <Link href="/refunds/" className="underline underline-offset-[3px] hover:text-fg">
-                  Refund policy
-                </Link>
-              </span>
-            </p>
-          </div>
-        </Spotlight>
-      </Reveal>
+      <div className="grid items-center gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
+        <Reveal>
+          <h2 className="max-w-[16ch] text-[clamp(2rem,3.8vw,3rem)] font-semibold leading-[1.05] tracking-[-0.04em]">
+            The code is free. The diagnosis is the product.
+          </h2>
+          <p className="mt-5 max-w-[50ch] text-muted">
+            What each symptom looked like, every wrong theory ruled out first, and the one measurement that finally
+            showed what was happening. Apply it before your own dashboard starts lying.
+          </p>
+          <Spotlight className="mt-9 max-w-[440px] rounded-[18px] border border-line bg-surface">
+            <div className="relative z-[1] flex flex-col gap-4 p-6 md:p-7">
+              <div className="flex items-end justify-between gap-4">
+                <span className="text-[3rem] font-semibold leading-none tracking-[-0.05em]">{SITE.price}</span>
+                <span className="font-mono text-[12.5px] text-muted">one-time</span>
+              </div>
+              <Magnetic strength={0.12}>
+                <ButtonLink href={SITE.checkout} className="w-full">
+                  Get the post-mortem
+                  <ArrowRight size={15} weight="bold" aria-hidden />
+                </ButtonLink>
+              </Magnetic>
+              <p className="flex gap-2 text-sm text-muted">
+                <DownloadSimple size={18} className="shrink-0" aria-hidden />
+                Delivered by email as a download, right after payment.
+              </p>
+              <p className="flex gap-2 text-sm text-muted">
+                <ShieldCheck size={18} className="shrink-0" aria-hidden />
+                <span>
+                  {SITE.refundDays}-day refund, no questions asked.{" "}
+                  <Link href="/refunds/" className="underline underline-offset-[3px] hover:text-fg">
+                    Refund policy
+                  </Link>
+                </span>
+              </p>
+            </div>
+          </Spotlight>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <CaseFile />
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -82,15 +94,19 @@ const FAQ = [
   },
   {
     q: "What exactly do I get when I buy?",
-    a: "A Markdown document of about 12 KB covering all five incidents in full. Lemon Squeezy emails you a download link right after payment.",
+    a: "A Markdown document of about 12 KB covering all five incidents in full, plus the pattern behind them. Lemon Squeezy emails you a download link right after payment.",
   },
   {
-    q: "Which Python versions are supported?",
-    a: "Python 3.9 and newer. The package has no dependencies outside the standard library.",
+    q: "Are the numbers on this page real?",
+    a: "Yes. They come from an audit of my own autonomous agent system in September 2026: 40 ventures, 1,003 posts, 2,090 leads, and $0.00 of real revenue.",
   },
   {
     q: "Is the webhook rail only for Lemon Squeezy?",
     a: "The parser reads Lemon Squeezy payloads out of the box. The verify, dedupe and record order works for any processor that sends a hex HMAC-SHA256 signature of the raw body. Adapt the parse step to your payload.",
+  },
+  {
+    q: "Which Python versions are supported?",
+    a: "Python 3.9 and newer. The package has no dependencies outside the standard library.",
   },
   {
     q: "Can I get a refund?",
@@ -121,15 +137,22 @@ export function Faq() {
 export function Closing() {
   return (
     <Reveal className="mt-24 md:mt-36">
-      <section className="relative isolate overflow-hidden rounded-[28px] border border-line">
-        <Parallax distance={-90} className="absolute inset-[-12%_0] -z-10">
-          <Image src="/assets/glow.webp" alt="" width={1024} height={576} className="h-full w-full object-cover opacity-70 saturate-150" />
-        </Parallax>
-        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(100deg,var(--bg)_25%,color-mix(in_srgb,var(--bg)_55%,transparent)_70%,color-mix(in_srgb,var(--bg)_20%,transparent))]" />
+      <section className="relative isolate overflow-hidden rounded-[28px] border border-line bg-surface">
+        <div aria-hidden className="grid-bg absolute inset-0 -z-10" />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_90%_110%,color-mix(in_srgb,var(--accent)_30%,transparent),transparent_55%)]"
+        />
         <div className="flex flex-wrap items-center justify-between gap-8 px-7 py-14 md:px-14 md:py-24">
-          <h2 className="max-w-[16ch] text-[clamp(2.1rem,4.4vw,3.6rem)] font-semibold leading-[1.03] tracking-[-0.045em]">
-            Check your rail before your first sale does.
-          </h2>
+          <div>
+            <span className="inline-flex items-center gap-2 font-mono text-[13px] text-ok">
+              <span className="live-dot h-2 w-2 rounded-full bg-current" aria-hidden />
+              your dashboard: all systems normal
+            </span>
+            <h2 className="mt-4 max-w-[16ch] text-[clamp(2.1rem,4.4vw,3.6rem)] font-semibold leading-[1.03] tracking-[-0.045em]">
+              Check your rail before your first sale does.
+            </h2>
+          </div>
           <div className="flex flex-wrap gap-3">
             <Magnetic>
               <ButtonLink href={SITE.github}>
