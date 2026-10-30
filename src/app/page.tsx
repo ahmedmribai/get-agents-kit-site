@@ -1,5 +1,5 @@
 import { Hero } from "@/components/home/Hero";
-import { Incident, QuickStart } from "@/components/home/Incident";
+import { Incident, Pipeline, QuickStart } from "@/components/home/Incident";
 import { Facts, Modules } from "@/components/home/Modules";
 import { Closing, Faq, Offer } from "@/components/home/Offer";
 import { SITE } from "@/lib/site";
@@ -32,18 +32,25 @@ const JSON_LD = {
   ],
 };
 
+const CONTAINER = "mx-auto w-[min(1200px,100%-32px)] md:w-[min(1200px,100%-48px)]";
+
 export default function Home() {
   return (
-    <div className="mx-auto w-[min(1160px,100%-32px)] md:w-[min(1160px,100%-48px)]">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <Hero />
-      <Facts />
-      <Modules />
-      <Incident />
-      <QuickStart />
-      <Offer />
-      <Faq />
-      <Closing />
-    </div>
+      <div className={CONTAINER}>
+        <Facts />
+        <Modules />
+        <Incident />
+      </div>
+      <Pipeline />
+      <div className={CONTAINER}>
+        <QuickStart />
+        <Offer />
+        <Faq />
+        <Closing />
+      </div>
+    </>
   );
 }

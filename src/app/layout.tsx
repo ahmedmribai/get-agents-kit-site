@@ -18,7 +18,13 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   authors: [{ name: SITE.author }],
   alternates: { canonical: "/" },
-  icons: { icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/icon.png", type: "image/png" }], apple: "/apple-touch-icon.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     type: "website",
     siteName: SITE.name,
